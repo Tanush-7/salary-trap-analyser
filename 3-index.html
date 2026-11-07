@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:,">
+<title>Salary Trap Analyser — why a hike leaves only a few thousand — tanush.tech</title>
+<meta name="description" content="Paste your pay, rent, EMIs and SIPs. See your real in-hand, where the month goes, and why a higher salary still leaves only a few thousand free.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F5F1;--card:#FFFFFF;--card2:#EEF2EE;--ink:#13201B;--muted:#5B6B64;--line:#DDE3DE;--teal:#0E7569;--teal-dark:#0A5C54;--amber-bg:#FEF3C7;--red:#B91C1C;--green:#15803D;--radius:18px}
+@media (prefers-color-scheme: dark){:root{--bg:#0E1512;--card:#17211D;--card2:#1E2B26;--ink:#E8EFEA;--muted:#9AAEA4;--line:#2A3A33;--amber-bg:#2A2110}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 18px 44px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:var(--teal)}
+h1{font-size:clamp(28px,5vw,46px);line-height:1.05;margin:10px 0 10px;letter-spacing:-.03em;max-width:780px}h1 span{color:var(--teal)}
+.sub{font-size:17px;color:var(--muted);max-width:740px;margin:0}
+.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;margin-top:18px;align-items:start}@media(max-width:860px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px}.card h2{margin:0 0 4px;font-size:18px;letter-spacing:-.02em}.card p.help{margin:0 0 8px;color:var(--muted);font-size:14px}
+label{font-size:13px;font-weight:700;display:block;margin:16px 0 7px}input[type=number]{width:100%;padding:12px 13px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:15px;font-family:inherit}input:focus{outline:2px solid var(--teal);outline-offset:1px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:520px){.row2{grid-template-columns:1fr}}
+.badge{font-family:"IBM Plex Mono",monospace;font-weight:600;background:var(--card2);border:1px solid var(--line);padding:6px 10px;border-radius:999px;font-size:13px;white-space:nowrap}
+.note{font-size:12.5px;color:var(--muted);margin-top:7px;line-height:1.45}.note b{color:var(--ink)}
+.verdict{position:sticky;top:14px}@media(max-width:860px){.verdict{position:static}}
+.verdictTop{background:var(--teal);color:#fff;border-radius:18px;padding:22px}.verdictTop small{letter-spacing:.1em;text-transform:uppercase;font-weight:800;font-size:11px;opacity:.9}
+.big{font-family:"IBM Plex Mono",monospace;font-size:clamp(34px,6vw,48px);line-height:1;font-weight:600;letter-spacing:-.04em;margin:8px 0 4px}.bigSub{opacity:.92;font-size:14px}
+.bar{height:14px;border-radius:999px;overflow:hidden;display:flex;background:var(--card2);margin:14px 0 8px}.bar i{display:block;height:100%}
+.legend{display:grid;grid-template-columns:1fr 1fr;gap:4px 14px;font-size:13px}.legend div{display:flex;justify-content:space-between;gap:8px;border-bottom:1px dashed var(--line);padding:6px 0}
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}.kpi{background:var(--card2);border-radius:14px;padding:13px}.kpi b{font-family:"IBM Plex Mono",monospace;font-size:18px;display:block;line-height:1.1}.kpi span{font-size:12.5px;color:var(--muted)}
+.insight{margin-top:14px;border-radius:14px;padding:14px;font-size:14px}.insight.warn{background:var(--amber-bg);border:1px solid #F59E0B55}.insight.good{background:#DCFCE755;border:1px solid #22C55E55}
+.section{margin-top:22px}.section h2{font-size:22px;letter-spacing:-.02em;margin:0 0 6px}.section>p{color:var(--muted);margin:0 0 14px;max-width:780px}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}@media(max-width:800px){.how{grid-template-columns:1fr}}.how div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}.how h3{margin:0 0 6px;font-size:15px}.how p{margin:0;font-size:14px;color:var(--muted)}
+.badgesRow{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.foot{margin-top:26px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}.foot a{color:var(--teal)}
+.basis{margin-top:12px;font-size:13px;background:var(--card2);border-radius:12px;padding:12px;line-height:1.55}
+.trap{border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:10px;background:var(--card2)}
+.trap table{width:100%;border-collapse:collapse;font-size:13.5px}.trap td{padding:6px 4px;border-bottom:1px dashed var(--line)}.trap td:last-child{text-align:right;font-family:"IBM Plex Mono",monospace;font-weight:600}.trap tr:last-child td{border-bottom:0;font-weight:800;color:var(--teal)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">tanush.tech · money tools</div>
+  <h1>A higher salary, and still <span>a few thousand left.</span></h1>
+  <p class="sub">Paste your pay, rent, EMIs and SIPs. See the real in-hand, where the month actually goes, and what a hike is worth after tax, rent renewal and lifestyle creep.</p>
+  <div class="badgesRow"><span class="badge">New regime FY 2026-27 · India</span><span class="badge">Entries stay in this browser tab — nothing is uploaded</span></div>
+
+  <div class="grid">
+    <div>
+      <div class="card">
+        <h2>Income</h2>
+        <p class="help">CTC is the offer-letter number. Tax uses the new regime with the ₹75,000 standard deduction.</p>
+        <label for="ctc">Annual CTC (₹)</label>
+        <input type="number" id="ctc" value="1800000" min="0" step="50000">
+        <div class="row2">
+          <div><label for="pf">PF + payroll deductions (₹/mo)</label><input type="number" id="pf" value="0" min="0"></div>
+          <div><label for="ptax">Professional tax (₹/mo)</label><input type="number" id="ptax" value="200" min="0"></div>
+        </div>
+        <p class="note">PF left at 0 defaults to 12% of an assumed basic of 50% of CTC. Check your payslip and overwrite it — companies differ. Karnataka professional tax is ₹200/mo at salaries of ₹25,000+.</p>
+      </div>
+
+      <div class="card" style="margin-top:18px">
+        <h2>The month's commitments</h2>
+        <p class="help">Everything that leaves the account before you make a single choice.</p>
+        <div class="row2">
+          <div><label for="rent">Rent (₹/mo)</label><input type="number" id="rent" value="30000" min="0"></div>
+          <div><label for="emis">EMIs — home / car / personal (₹/mo)</label><input type="number" id="emis" value="0" min="0"></div>
+        </div>
+        <div class="row2">
+          <div><label for="sips">SIPs &amp; investments (₹/mo)</label><input type="number" id="sips" value="15000" min="0"></div>
+          <div><label for="house">Household, bills, groceries, fuel (₹/mo)</label><input type="number" id="house" value="25000" min="0"></div>
+        </div>
+        <label for="other">Anything else fixed — insurance, subscriptions, support home (₹/mo)</label>
+        <input type="number" id="other" value="0" min="0">
+      </div>
+
+      <div class="card" style="margin-top:18px">
+        <h2>The trap test</h2>
+        <p class="help">Now imagine the hike letter arrives. Three quiet forces decide how much of it you keep.</p>
+        <div class="row2">
+          <div><label for="hike">Expected hike (%)</label><input type="number" id="hike" value="12" min="0" max="100"></div>
+          <div><label for="rentGrow">Rent escalation at renewal (%)</label><input type="number" id="rentGrow" value="7" min="0" max="30"></div>
+        </div>
+        <div class="row2">
+          <div><label for="sipStep">SIP step-up with hike (%)</label><input type="number" id="sipStep" value="10" min="0" max="100"></div>
+          <div><label for="creep">Lifestyle creep — share of the raise absorbed (%)</label><input type="number" id="creep" value="30" min="0" max="100"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="verdict">
+      <div class="verdictTop">
+        <small>Free cash left each month</small>
+        <div class="big" id="left">₹0</div>
+        <div class="bigSub" id="leftSub">after tax, rent, EMIs, SIPs and household</div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <h2>Where a month goes</h2>
+        <div class="bar" id="bar"><i id="bTax" style="background:#B45309"></i><i id="bRent" style="background:#0E7569"></i><i id="bEmi" style="background:#B91C1C"></i><i id="bSip" style="background:#2563EB"></i><i id="bHouse" style="background:#64748B"></i><i id="bLeft" style="background:#15803D"></i></div>
+        <div class="legend">
+          <div><span><i class="dot" style="background:#B45309"></i>Tax + payroll</span><b id="lTax">—</b></div>
+          <div><span><i class="dot" style="background:#0E7569"></i>Rent</span><b id="lRent">—</b></div>
+          <div><span><i class="dot" style="background:#B91C1C"></i>EMIs</span><b id="lEmi">—</b></div>
+          <div><span><i class="dot" style="background:#2563EB"></i>SIPs</span><b id="lSip">—</b></div>
+          <div><span><i class="dot" style="background:#64748B"></i>Household + other</span><b id="lHouse">—</b></div>
+          <div><span><i class="dot" style="background:#15803D"></i>Left over</span><b id="lLeft">—</b></div>
+        </div>
+        <div class="kpis">
+          <div class="kpi"><b id="kInhand">—</b><span>In-hand per month</span></div>
+          <div class="kpi"><b id="kTax">—</b><span>Income tax per month (new regime)</span></div>
+        </div>
+        <div class="insight warn" id="verdictBox"></div>
+        <div class="trap">
+          <h3 style="margin:0 0 6px;font-size:14px">What a <span id="hikeEcho">12%</span> hike actually becomes</h3>
+          <table id="trapTable"></table>
+        </div>
+        <div class="basis" id="basisBox"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>How the tax is computed</h2>
+    <p>New regime, FY 2026-27 (unchanged in Budget 2026). Simplified — check Form 16 or a CA for filing.</p>
+    <div class="how">
+      <div><h3>Slabs</h3><p>0–4L nil, 4–8L 5%, 8–12L 10%, 12–16L 15%, 16–20L 20%, 20–24L 25%, above 24L 30%, plus 4% cess. Standard deduction ₹75,000 for salaried income.</p></div>
+      <div><h3>Rebate &amp; marginal relief</h3><p>Section 87A rebate of ₹60,000 makes taxable income up to ₹12 lakh effectively tax-free — about ₹12.75 lakh of salary. Just above that, marginal relief caps the tax at the income exceeding ₹12 lakh; this tool applies it, so there is no cliff at the boundary.</p></div>
+      <div><h3>What's skipped</h3><p>Old regime (HRA, 80C, home-loan interest), surcharge above ₹50 lakh, and employer-specific exemptions. Special-rate income (capital gains) is not modelled. PF defaults to 12% of an assumed 50%-of-CTC basic — overwrite it from your payslip.</p></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    Tax: FY 2026-27 new regime, slabs unchanged by Budget 2026 — verify at incometax.gov.in (old vs new regime FAQ). Marginal relief applied per Section 87A rules. Professional tax: Karnataka ₹200/mo at ₹25,000+ salary (ptax.karnataka.gov.in). Not tax or investment advice. More tools: <a href="https://tanush.tech">tanush.tech</a> · Nov 2026
+  </div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const fmt=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+const SLABS=[[400000,0],[800000,.05],[1200000,.10],[1600000,.15],[2000000,.20],[2400000,.25],[Infinity,.30]];
+function taxNewRegime(ctc){
+  const taxable=Math.max(0,ctc-75000); let t=0,prev=0;
+  for(const [cap,rate] of SLABS){ if(taxable>prev){ t+=(Math.min(taxable,cap)-prev)*rate; prev=cap; } else break; }
+  if(taxable<=1200000){ t=Math.max(0,t-60000); }
+  else { const excess=taxable-1200000; if(t>excess) t=excess; /* marginal relief: tax never exceeds income over 12L */ }
+  return t*1.04;
+}
+function marginalRate(ctc){
+  // effective marginal rate by finite difference, so rebate boundary and marginal relief are handled exactly
+  return (taxNewRegime(ctc+12000)-taxNewRegime(ctc))/12000;
+}
+function calc(){
+  const ctc=+$('ctc').value||0;
+  let pf=+$('pf').value||0; if(pf===0) pf=Math.round(ctc*0.5*0.12/12);
+  const pt=+$('ptax').value||0;
+  const tax=taxNewRegime(ctc), taxMo=tax/12;
+  const grossMo=ctc/12;
+  const inhand=grossMo-taxMo-pf-pt;
+  const rent=+$('rent').value||0, emis=+$('emis').value||0, sips=+$('sips').value||0, house=+$('house').value||0, other=+$('other').value||0;
+  const committed=rent+emis+sips+house+other;
+  const left=inhand-committed;
+  $('left').textContent=fmt(left);
+  $('leftSub').textContent=left>=0?'after tax, rent, EMIs, SIPs and household':'shortfall — commitments exceed in-hand';
+  $('kInhand').textContent=fmt(inhand); $('kTax').textContent=fmt(taxMo);
+  const parts=[{v:taxMo+pf+pt,id:'Tax'},{v:rent,id:'Rent'},{v:emis,id:'Emi'},{v:sips,id:'Sip'},{v:house+other,id:'House'},{v:Math.max(0,left),id:'Left'}];
+  const sum=Math.max(1,parts.reduce((a,p)=>a+p.v,0));
+  parts.forEach(p=>{$('b'+p.id).style.width=(p.v/sum*100)+'%'});
+  $('lTax').textContent=fmt(taxMo+pf+pt); $('lRent').textContent=fmt(rent); $('lEmi').textContent=fmt(emis);
+  $('lSip').textContent=fmt(sips); $('lHouse').textContent=fmt(house+other); $('lLeft').textContent=fmt(Math.max(0,left));
+  // trap test
+  const hike=(+$('hike').value||0)/100, rentGrow=(+$('rentGrow').value||0)/100, sipStep=(+$('sipStep').value||0)/100, creep=(+$('creep').value||0)/100;
+  $('hikeEcho').textContent=$('hike').value+'%';
+  const newCtc=ctc*(1+hike), newTax=taxNewRegime(newCtc);
+  let newPf=pf; if((+$('pf').value||0)===0) newPf=Math.round(newCtc*0.5*0.12/12);
+  const newInhand=newCtc/12-newTax/12-newPf-pt;
+  const raiseKept=newInhand-inhand;
+  const rentBite=rent*rentGrow, sipBite=sips*sipStep, creepBite=raiseKept*creep;
+  const realGain=raiseKept-rentBite-sipBite-creepBite;
+  $('trapTable').innerHTML=`
+    <tr><td>Gross raise (+${$('hike').value}% of CTC)</td><td>+${fmt(newCtc-ctc)}/yr</td></tr>
+    <tr><td>After tax &amp; payroll — extra in-hand</td><td>+${fmt(raiseKept)}/mo</td></tr>
+    <tr><td>Rent renewal at +${$('rentGrow').value}%</td><td>−${fmt(rentBite)}/mo</td></tr>
+    <tr><td>SIP step-up at +${$('sipStep').value}%</td><td>−${fmt(sipBite)}/mo</td></tr>
+    <tr><td>Lifestyle creep (${$('creep').value}% of the raise)</td><td>−${fmt(creepBite)}/mo</td></tr>
+    <tr><td>Real new free cash</td><td>${fmt(realGain)}/mo</td></tr>`;
+  const mr=marginalRate(ctc);
+  const box=$('verdictBox');
+  if(left<0){box.className='insight warn';box.innerHTML=`<b>Shortfall of ${fmt(-left)}/mo.</b> Commitments exceed in-hand — the leak is structural, not a spending habit. The biggest single lever above is usually rent or an EMI.`}
+  else if(left<inhand*0.1){box.className='insight warn';box.innerHTML=`<b>The trap is visible:</b> ${fmt(inhand)} in-hand leaves ${fmt(left)}. At your slab, each extra ₹1,000 of salary keeps only about ₹${Math.round(1000*(1-mr))} after tax — so the raise below adds less than it looks.`}
+  else{box.className='insight good';box.innerHTML=`<b>${fmt(left)}/mo free (${Math.round(left/Math.max(1,inhand)*100)}% of in-hand).</b> The trap panel shows how fast that shrinks if the raise gets absorbed by rent renewal and creep.`}
+  $('basisBox').innerHTML=`<b>Tax basis:</b> CTC ${fmt(ctc)} − ₹75,000 standard deduction = ${fmt(Math.max(0,ctc-75000))} taxable → ${fmt(tax)}/yr new regime (incl. 4% cess${Math.max(0,ctc-75000)<=1200000?', after the ₹60,000 rebate':''}). In-hand = CTC/12 − tax/12 − PF ${fmt(pf)} − prof. tax ${fmt(pt)}.`;
+}
+['ctc','pf','ptax','rent','emis','sips','house','other','hike','rentGrow','sipStep','creep'].forEach(i=>$(i).addEventListener('input',calc));
+calc();
+</script>
+</body>
+</html>
