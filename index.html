@@ -6,7 +6,7 @@
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:,">
 <title>Salary Trap Analyser — why a hike leaves only a few thousand — tanush.tech</title>
-<meta name="description" content="Paste your pay, rent, EMIs and SIPs. See your real in-hand, where the month goes, and why a higher salary still leaves only a few thousand free.">
+<meta name="description" content="Paste your pay, rent, EMIs and SIPs. See your estimated in-hand, where the month goes, and why a higher salary still leaves only a few thousand free.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
@@ -51,14 +51,14 @@ label{font-size:13px;font-weight:700;display:block;margin:16px 0 7px}input[type=
     <div>
       <div class="card">
         <h2>Income</h2>
-        <p class="help">CTC is the offer-letter number. Tax uses the new regime with the ₹75,000 standard deduction.</p>
-        <label for="ctc">Annual CTC (₹)</label>
+        <p class="help">Enter annual gross cash salary before tax — exclude employer PF contribution, gratuity and stock. Tax uses the new regime with the ₹75,000 standard deduction; this is an estimate, not a payslip match.</p>
+        <label for="ctc">Annual gross cash salary (₹)</label>
         <input type="number" id="ctc" value="1800000" min="0" step="50000">
         <div class="row2">
-          <div><label for="pf">PF + payroll deductions (₹/mo)</label><input type="number" id="pf" value="0" min="0"></div>
+          <div><label for="pf">PF + payroll deductions (₹/mo) — 0 auto-estimates</label><input type="number" id="pf" value="0" min="0"></div>
           <div><label for="ptax">Professional tax (₹/mo)</label><input type="number" id="ptax" value="200" min="0"></div>
         </div>
-        <p class="note">PF left at 0 defaults to 12% of an assumed basic of 50% of CTC. Check your payslip and overwrite it — companies differ. Karnataka professional tax is ₹200/mo at salaries of ₹25,000+.</p>
+        <p class="note">PF left at 0 auto-estimates 12% of an assumed basic of 50% of gross. Enter your payslip figure for a real 0. Check your payslip and overwrite it — companies differ. Karnataka professional tax is ₹200/mo at salaries of ₹25,000+.</p>
       </div>
 
       <div class="card" style="margin-top:18px">
@@ -108,7 +108,7 @@ label{font-size:13px;font-weight:700;display:block;margin:16px 0 7px}input[type=
           <div><span><i class="dot" style="background:#15803D"></i>Left over</span><b id="lLeft">—</b></div>
         </div>
         <div class="kpis">
-          <div class="kpi"><b id="kInhand">—</b><span>In-hand per month</span></div>
+          <div class="kpi"><b id="kInhand">—</b><span>Estimated in-hand per month</span></div>
           <div class="kpi"><b id="kTax">—</b><span>Income tax per month (new regime)</span></div>
         </div>
         <div class="insight warn" id="verdictBox"></div>
@@ -178,7 +178,7 @@ function calc(){
   const rentBite=rent*rentGrow, sipBite=sips*sipStep, creepBite=raiseKept*creep;
   const realGain=raiseKept-rentBite-sipBite-creepBite;
   $('trapTable').innerHTML=`
-    <tr><td>Gross raise (+${$('hike').value}% of CTC)</td><td>+${fmt(newCtc-ctc)}/yr</td></tr>
+    <tr><td>Gross raise (+${$('hike').value}% of gross)</td><td>+${fmt(newCtc-ctc)}/yr</td></tr>
     <tr><td>After tax &amp; payroll — extra in-hand</td><td>+${fmt(raiseKept)}/mo</td></tr>
     <tr><td>Rent renewal at +${$('rentGrow').value}%</td><td>−${fmt(rentBite)}/mo</td></tr>
     <tr><td>SIP step-up at +${$('sipStep').value}%</td><td>−${fmt(sipBite)}/mo</td></tr>
@@ -189,7 +189,7 @@ function calc(){
   if(left<0){box.className='insight warn';box.innerHTML=`<b>Shortfall of ${fmt(-left)}/mo.</b> Commitments exceed in-hand — the leak is structural, not a spending habit. The biggest single lever above is usually rent or an EMI.`}
   else if(left<inhand*0.1){box.className='insight warn';box.innerHTML=`<b>The trap is visible:</b> ${fmt(inhand)} in-hand leaves ${fmt(left)}. At your slab, each extra ₹1,000 of salary keeps only about ₹${Math.round(1000*(1-mr))} after tax — so the raise below adds less than it looks.`}
   else{box.className='insight good';box.innerHTML=`<b>${fmt(left)}/mo free (${Math.round(left/Math.max(1,inhand)*100)}% of in-hand).</b> The trap panel shows how fast that shrinks if the raise gets absorbed by rent renewal and creep.`}
-  $('basisBox').innerHTML=`<b>Tax basis:</b> CTC ${fmt(ctc)} − ₹75,000 standard deduction = ${fmt(Math.max(0,ctc-75000))} taxable → ${fmt(tax)}/yr new regime (incl. 4% cess${Math.max(0,ctc-75000)<=1200000?', after the ₹60,000 rebate':''}). In-hand = CTC/12 − tax/12 − PF ${fmt(pf)} − prof. tax ${fmt(pt)}.`;
+  $('basisBox').innerHTML=`<b>Tax basis:</b> gross ${fmt(ctc)} − ₹75,000 standard deduction = ${fmt(Math.max(0,ctc-75000))} taxable → ${fmt(tax)}/yr new regime (incl. 4% cess${Math.max(0,ctc-75000)<=1200000?', after the ₹60,000 rebate':''}). Est. in-hand = gross/12 − tax/12 − PF ${fmt(pf)} − prof. tax ${fmt(pt)}.`;
 }
 ['ctc','pf','ptax','rent','emis','sips','house','other','hike','rentGrow','sipStep','creep'].forEach(i=>$(i).addEventListener('input',calc));
 calc();
