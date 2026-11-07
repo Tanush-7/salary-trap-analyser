@@ -55,10 +55,10 @@ label{font-size:13px;font-weight:700;display:block;margin:16px 0 7px}input[type=
         <label for="ctc">Annual gross cash salary (₹)</label>
         <input type="number" id="ctc" value="1800000" min="0" step="50000">
         <div class="row2">
-          <div><label for="pf">PF + payroll deductions (₹/mo) — 0 auto-estimates</label><input type="number" id="pf" value="0" min="0"></div>
+          <div><label for="pf">PF + payroll deductions (₹/mo) — pre-filled estimate</label><input type="number" id="pf" value="9000" min="0"></div>
           <div><label for="ptax">Professional tax (₹/mo)</label><input type="number" id="ptax" value="200" min="0"></div>
         </div>
-        <p class="note">PF left at 0 auto-estimates 12% of an assumed basic of 50% of gross. Enter your payslip figure for a real 0. Check your payslip and overwrite it — companies differ. Karnataka professional tax is ₹200/mo at salaries of ₹25,000+.</p>
+        <p class="note">Pre-filled as 12% of an assumed basic of 50% of the default gross — overwrite it from your payslip; companies differ. 0 really means 0. Karnataka professional tax is ₹200/mo at salaries of ₹25,000+.</p>
       </div>
 
       <div class="card" style="margin-top:18px">
@@ -152,7 +152,7 @@ function marginalRate(ctc){
 }
 function calc(){
   const ctc=+$('ctc').value||0;
-  let pf=+$('pf').value||0; if(pf===0) pf=Math.round(ctc*0.5*0.12/12);
+  let pf=+$('pf').value||0; // 0 really means 0
   const pt=+$('ptax').value||0;
   const tax=taxNewRegime(ctc), taxMo=tax/12;
   const grossMo=ctc/12;
@@ -172,7 +172,7 @@ function calc(){
   const hike=(+$('hike').value||0)/100, rentGrow=(+$('rentGrow').value||0)/100, sipStep=(+$('sipStep').value||0)/100, creep=(+$('creep').value||0)/100;
   $('hikeEcho').textContent=$('hike').value+'%';
   const newCtc=ctc*(1+hike), newTax=taxNewRegime(newCtc);
-  let newPf=pf; if((+$('pf').value||0)===0) newPf=Math.round(newCtc*0.5*0.12/12);
+  let newPf=pf; // fixed payroll deductions stay as entered
   const newInhand=newCtc/12-newTax/12-newPf-pt;
   const raiseKept=newInhand-inhand;
   const rentBite=rent*rentGrow, sipBite=sips*sipStep, creepBite=raiseKept*creep;
